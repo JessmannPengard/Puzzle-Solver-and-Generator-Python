@@ -1,32 +1,39 @@
+# solve.py
+
 from puzzle.puzzle import Puzzle
 from puzzle.puzzle_solver import PuzzleSolver
 import sys
 import time
 
-if len(sys.argv) < 2:
-    print("Usage: solve [filename]")
-    sys.exit(1)
 
-file_name = sys.argv[1]
-puzzle = Puzzle.load_puzzle(file_name)
+def main():
+    """
+    Main function to load a puzzle, solve it, and print the solutions.
+    """
+    if len(sys.argv) < 2:
+        print("Usage: solve [filename]")
+        sys.exit(1)
 
-if puzzle is not None:
-    print(puzzle.to_string())
+    file_name = sys.argv[1]
+    puzzle = Puzzle.load_puzzle(file_name)
 
-    print("Solving...")
-    solver = PuzzleSolver(puzzle)
+    if puzzle is not None:
+        print(puzzle.to_string())
 
-    start_time = time.time()
-    solver.solve()
-    end_time = time.time()
+        print("Solving...")
+        solver = PuzzleSolver(puzzle)
 
-    execution_time = end_time - start_time
+        start_time = time.time()
+        solver.solve()
+        end_time = time.time()
 
-    solutions = solver.get_solutions_as_string()
-    print(solutions)
+        execution_time = end_time - start_time
 
-    print(f"Solved in {execution_time:.4f} secs.")
+        solutions = solver.get_solutions_as_string()
+        print(solutions)
+
+        print(f"Solved in {execution_time:.4f} secs.")
 
 
-# Example usage:
-# python solve.py puzzles/2x10.txt
+if __name__ == "__main__":
+    main()

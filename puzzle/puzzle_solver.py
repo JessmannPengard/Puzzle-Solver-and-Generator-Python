@@ -1,3 +1,5 @@
+# puzzle_solver.py
+
 from puzzle.puzzle import Puzzle
 from puzzle.puzzle_piece import PuzzlePiece
 from typing import List, Optional
@@ -5,10 +7,22 @@ from typing import List, Optional
 
 class PuzzleSolver:
     def __init__(self, puzzle: Puzzle):
+        """
+        PuzzleSolver class constructor.
+
+        Args:
+            puzzle: Puzzle object to solve.
+        """
         self.puzzle = puzzle
         self.solutions = []
 
     def get_solutions_as_string(self) -> str:
+        """
+        Get the solutions as a formatted string.
+
+        Returns:
+            Formatted string containing the solutions.
+        """
         separator = "\n"
         result = f"{separator}Solution(s){separator}"
         for solution in self.solutions:
@@ -20,11 +34,26 @@ class PuzzleSolver:
         return result
 
     def solve(self) -> None:
+        """
+        Solve the puzzle and store the solutions.
+        """
         current_solution = [[None]*self.puzzle.get_cols()
                             for _ in range(self.puzzle.get_rows())]
         self.solve_puzzle(0, 0, current_solution, [])
 
     def solve_puzzle(self, row: int, col: int, current_solution: List[List[Optional[PuzzlePiece]]], used_pieces: List[PuzzlePiece]) -> None:
+        """
+        Recursively solve the puzzle.
+
+        Args:
+            row: Current row in the puzzle.
+            col: Current column in the puzzle.
+            current_solution: Current state of the puzzle solution.
+            used_pieces: List of pieces that have already been used.
+
+        Returns:
+            None
+        """
         num_pieces = len(self.puzzle.get_pieces())
 
         # Calculate next row and column
@@ -76,6 +105,15 @@ class PuzzleSolver:
                     used_pieces.pop()
 
     def find_fixed_corner_piece(self, pieces: List[PuzzlePiece]) -> Optional[PuzzlePiece]:
+        """
+        Find the fixed corner piece based on the puzzle type.
+
+        Args:
+            pieces: List of puzzle pieces.
+
+        Returns:
+            Fixed corner puzzle piece or None if not found.
+        """
         for piece in pieces:
             if self.puzzle.is_one_dimensional():
                 if piece.is_linear_corner():
@@ -91,6 +129,18 @@ class PuzzleSolver:
         return None
 
     def try_piece(self, row: int, col: int, piece: PuzzlePiece, solution: List[List[PuzzlePiece]]) -> bool:
+        """
+        Try placing a puzzle piece in the current position.
+
+        Args:
+            row: Current row in the puzzle.
+            col: Current column in the puzzle.
+            piece: Puzzle piece to try placing.
+            solution: Current state of the puzzle solution.
+
+        Returns:
+            True if the piece can be placed, False otherwise.
+        """
         width = self.puzzle.get_cols()
         height = self.puzzle.get_rows()
 
