@@ -1,10 +1,12 @@
 # Puzzle Solver
 
 Puzzle Solver is a Python-based application that solves puzzles provided as text files. It includes a command-line interface (`solve.py`). The application is designed to handle puzzles represented by a grid of pieces.
+It also includes a puzzle generator (`generate.py`) so you can generate different puzzles to test the Puzzle Solver.
 
 ## Features
 
 - Solve puzzles from text files
+- Generate new puzzles (not fully tested)
 - Command-line interface
 - Unit tests for the Puzzle and PuzzlePiece classes
 
@@ -21,7 +23,8 @@ No explicit installation is required for the Puzzle Solver. Simply ensure you ha
 ## Usage
 
 ### Command-Line interface:
-    python solve.py path/to/puzzle.txt
+    python solve.py [path/to/puzzle.txt]
+    python generate.py [cols] [rows] [faces_range] [path/to/puzzle.txt]
 
 ## File Format
 
